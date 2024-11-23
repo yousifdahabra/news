@@ -14,4 +14,10 @@ class News extends Model
         'content',
         'is_approved',
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
+
 }
