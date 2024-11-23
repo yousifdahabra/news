@@ -13,6 +13,7 @@ class News extends Model
         'title',
         'content',
         'is_approved',
+        'age',
     ];
 
     public function articles()
