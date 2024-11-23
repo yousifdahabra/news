@@ -1,0 +1,6 @@
+php artisan make:model Product -rcm
+-r = ressource
+-c = controller
+-m = migration
+This command will create a model, resource, controller and migration in one shot.
+

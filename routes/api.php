@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ use App\Http\Controllers\NewsController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post("/", [UserController::class, "authenticate"]);
+Route::post("/get_user", [UserController::class, "get_user"]);
+
 Route::prefix("/admin")->group(function() {
     Route::prefix("/news")->group(function() {
         Route::get("/{id?}", [NewsController::class, "get_news"]);

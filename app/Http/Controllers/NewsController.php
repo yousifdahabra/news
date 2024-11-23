@@ -9,8 +9,10 @@ class NewsController extends Controller
 {
     
     function get_news($id = 0){
+        $user = auth('api')->user();
+ 
         if(is_numeric($id)){
-            $news =  $id ? News::find($id)->where('is_approved', '1') : News::all()->where('is_approved', '1');
+            $news =  $id ? News::find($id)->where('is_approved', '1') : News::where('is_approved', '1') ->where('age','<', $user->age) ->get();
             return response()->json([
                 'news'=>$news,
                 'message'=>'',
