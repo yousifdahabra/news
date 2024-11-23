@@ -17,4 +17,7 @@ use App\Http\Controllers\NewsController;
 
 Route::prefix("/news")->group(function() {
     Route::get("/{id?}", [NewsController::class, "get_news"]);
+    Route::post("/", [NewsController::class, "add_news"]);
+
 });
+

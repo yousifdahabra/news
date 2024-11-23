@@ -21,4 +21,19 @@ class NewsController extends Controller
             'message'=>'check news id',
         ],400);
     }
+    function add_news(Request $request) {
+
+        $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'title' => 'required|unique:news|max:255',
+            'content' => 'required',
+            'is_approved' => 'required',
+        ]);
+        $news = News::create($request->all());
+        return response()->json([
+            "news" => $news,
+            'message'=>'succ',
+        ]);
+    }
+
 }
