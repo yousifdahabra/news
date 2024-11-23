@@ -31,8 +31,20 @@ class NewsController extends Controller
             'content' => 'required',
             'is_approved' => 'required',
         ]);
-        $news = News::create($request->all());
-        return response()->json([
+        $path = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('uploads', 'public');
+        }
+
+        $news = News::create([
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'content' => $request->content,
+            'is_approved' => $request->is_approved,
+            'path' => $path,
+        ]);
+            return response()->json([
             "news" => $news,
             'message'=>'succ',
         ]);

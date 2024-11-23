@@ -35,6 +35,13 @@ class ArticleController extends Controller
             'content' => 'required',
             'is_approved' => 'required',
         ]);
+        $path = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('uploads', 'public');
+        }
+        $request->merge(['file' => $path]);
+
         $article = Article::create($request->all());
         return response()->json([
             "article" => $article,
