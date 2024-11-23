@@ -36,4 +36,19 @@ class NewsController extends Controller
         ]);
     }
 
+    function update_news(Request $request) {
+
+        $validated = $request->validate([
+            'user_id' => 'required|integer',
+            'title' => 'required|unique:news|max:255',
+            'content' => 'required',
+            'is_approved' => 'required',
+        ]);
+        $news = News::where('id', $request->id)->update($request->all());
+        return response()->json([
+            "news" => $news,
+            'message'=>'succ update',
+        ]);
+    }
+
 }
