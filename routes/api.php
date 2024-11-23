@@ -14,12 +14,12 @@ use App\Http\Controllers\NewsController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::prefix("/news")->group(function() {
-    Route::get("/{id?}", [NewsController::class, "get_news"]);
-    Route::post("/", [NewsController::class, "add_news"]);
-    Route::put("/{id}", [NewsController::class, "update_news"]);
-    Route::delete("/{id}", [NewsController::class, "delete_news"]);
-
+Route::prefix("/admin")->group(function() {
+    Route::prefix("/news")->group(function() {
+        Route::get("/{id?}", [NewsController::class, "get_news"]);
+        Route::post("/", [NewsController::class, "add_news"]);
+        Route::put("/{id}", [NewsController::class, "update_news"]);
+        Route::delete("/{id}", [NewsController::class, "delete_news"]);
+    });
 });
 
