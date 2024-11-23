@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     
     function get_news($id = 0){
-        if(is_int($id)){
+        if(is_numeric($id)){
             $news =  $id ? News::find($id)->where('is_approved', '1') : News::all()->where('is_approved', '1');
             return response()->json([
                 'news'=>$news,
@@ -36,7 +36,7 @@ class NewsController extends Controller
         ]);
     }
 
-    function update_news(Request $request) {
+    function update_news($id,Request $request) {
 
         $validated = $request->validate([
             'user_id' => 'required|integer',
@@ -44,11 +44,24 @@ class NewsController extends Controller
             'content' => 'required',
             'is_approved' => 'required',
         ]);
-        $news = News::where('id', $request->id)->update($request->all());
+        $news = News::where('id', $id)->update($request->all());
         return response()->json([
             "news" => $news,
             'message'=>'succ update',
         ]);
+    }
+    function delete_news($id) {
+        if(is_numeric($id)){
+            $news = News::where('id', $id)->delete();
+            return response()->json([
+                "news" => $news,
+                'message'=>'succ delete',
+            ]);
+        }
+        return response()->json([
+            'news'=>null,
+            'message'=>'check news id',
+        ],400);
     }
 
 }
