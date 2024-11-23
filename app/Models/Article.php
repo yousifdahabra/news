@@ -16,6 +16,7 @@ class Article extends Model
         'content',
         'is_approved',
         'news_id',
+        'path',
     ];
     public function user()
     {
